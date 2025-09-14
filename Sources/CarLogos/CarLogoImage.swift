@@ -12,20 +12,18 @@ public struct CarLogoImage: View {
     }
 
     public var body: some View {
-        Group {
-            if let image = platformImage() {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: contentMode)
-                    .accessibilityLabel(Text(logo.name))
-            } else {
-                // Very lightweight placeholder
-                Rectangle()
-                    .fill(.secondary)
-                    .overlay(Text(logo.slug.uppercased()).font(.caption).bold().foregroundStyle(.background))
-                    .aspectRatio(1, contentMode: .fit)
-                    .accessibilityLabel(Text("\(logo.name) logo placeholder"))
-            }
+        if let image = platformImage() {
+            image
+                .resizable()
+                .aspectRatio(contentMode: contentMode)
+                .accessibilityLabel(Text(logo.name))
+        } else {
+            // Very lightweight placeholder
+            Rectangle()
+                .fill(.secondary)
+                .overlay(Text(logo.slug.uppercased()).font(.caption).bold().foregroundStyle(.background))
+                .aspectRatio(1, contentMode: .fit)
+                .accessibilityLabel(Text("\(logo.name) logo placeholder"))
         }
     }
 
