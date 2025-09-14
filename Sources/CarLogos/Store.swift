@@ -60,6 +60,10 @@ public enum CarLogosStore {
         return try decoder.decode([CarLogo].self, from: data)
     }
 
+    public static func logoForSlug(_ slug: String) -> CarLogo? {
+        return try? all().first(where: { $0.slug == slug })
+    }
+
     /// Resolve the best local path for a given variant, falling back sensibly.
     public static func localPath(for logo: CarLogo, variant: Variant) -> String? {
         switch variant {
