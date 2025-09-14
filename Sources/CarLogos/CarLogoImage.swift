@@ -16,6 +16,7 @@ public struct CarLogoImage: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: contentMode)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .accessibilityLabel(Text(logo.name))
         } else {
             // Very lightweight placeholder
