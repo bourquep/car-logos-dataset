@@ -3,11 +3,13 @@ import SwiftUI
 public struct CarLogoImage: View {
     public let logo: CarLogo
     public var variant: CarLogosStore.Variant = .thumb
+    public let size: CGSize
     public var contentMode: ContentMode = .fit
 
-    public init(logo: CarLogo, variant: CarLogosStore.Variant = .thumb, contentMode: ContentMode = .fit) {
+    public init(logo: CarLogo, variant: CarLogosStore.Variant = .thumb, size: CGSize, contentMode: ContentMode = .fit) {
         self.logo = logo
         self.variant = variant
+        self.size = size
         self.contentMode = contentMode
     }
 
@@ -16,7 +18,7 @@ public struct CarLogoImage: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: contentMode)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: size.width, height: size.height)
                 .accessibilityLabel(Text(logo.name))
         } else {
             // Very lightweight placeholder
