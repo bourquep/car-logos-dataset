@@ -1,10 +1,5 @@
 import Foundation
-#if canImport(UIKit)
-import UIKit
-#endif
-#if canImport(AppKit)
-import AppKit
-#endif
+import SwiftUI
 
 public enum CarLogosStore {
     public enum Variant {
@@ -62,6 +57,24 @@ public enum CarLogosStore {
 
     public static func logoForSlug(_ slug: String) -> CarLogo? {
         return try? all().first(where: { $0.slug == slug })
+    }
+
+    public static func imageForLogo(_ logo: CarLogo, variant: Variant = .optimized) -> Image? {
+        guard let url = localURL(for: logo, variant: variant) else {
+          return nil
+        }
+
+        #if os(macOS)
+        if let nsImage = NSImage(contentsOf: url) {
+          return Image(nsImage: nsImage)
+        }
+        #else
+        if let uiImage = UIImage(contentsOfFile: url.path) {
+          return Image(uiImage: uiImage)
+        }
+        #endif
+
+        return nil
     }
 
     /// Resolve the best local path for a given variant, falling back sensibly.
